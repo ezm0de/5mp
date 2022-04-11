@@ -35,7 +35,10 @@ SIG_ENFORCE=$(cat /etc/default/grub | grep "module.sig_enforce=1")
 if [[ $SIG_ENFORCE == "" ]]; then
   echo -e "\e[33mModule signing not detected,\e[0m please enable it with the following commands:"
   echo "sudo sed -i '/GRUB_CMDLINE_LINUX=/s/\"$/module.sig_enforce=1\"/' /etc/default/grub"
+  echo "sudo chattr +i /etc/default/grub"
   echo "sudo grub-mkconfig -o /boot/grub/grub.cfg"
+  echo "sudo chattr +i /boot/grub/grub.cfg"
+  echo "sudo rm /usr/bin/chattr"
   echo "sudo reboot"
 else
   echo -e "\e[32mKernel module signing already enabled :)\e[0m"
